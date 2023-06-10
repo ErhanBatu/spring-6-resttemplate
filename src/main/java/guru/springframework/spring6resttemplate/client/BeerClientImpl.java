@@ -26,15 +26,23 @@ public class BeerClientImpl implements BeerClient {
     private static final String GET_BEER_PATH = "/api/v1/beer";
 
     @Override
-    public Page<BeerDTO> listBeers() {
+    public String listBeers(String beerName) {
 
         RestTemplate restTemplate = restTemplateBuilder.build();
 
+        //this is to give opportunity to implement query param
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromPath(GET_BEER_PATH);
+
+        //it will search with query param if query param is filled in
+        if(beerName != null){
+            uriComponentsBuilder.queryParam("beerName", beerName);
+        }
 
         //ResponseEntity<String> I made this because I will take JSON which is String
         ResponseEntity<String> stringResponse =
                 restTemplate.getForEntity(uriComponentsBuilder.toUriString(), String.class);
+
+        System.out.println(stringResponse.getBody());
 
         //We invoke here Jackson and it will convert JSON to MAP
         ResponseEntity<Map> mapResponse =
@@ -49,9 +57,7 @@ public class BeerClientImpl implements BeerClient {
                     System.out.println(node.get("beerName").asText());
                 });
 
-        System.out.println(stringResponse.getBody());
-
-        return null;
+        return stringResponse.getBody();
     }
 
     @Override

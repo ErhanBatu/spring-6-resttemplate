@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 public interface BeerClient {
 
     //I take Page from Spring, if you want you can create your own properties
-    Page<BeerDTO> listBeers();
+    String listBeers(String beerName);
 
     Page<BeerDTO> beerDTOImpl();
 
