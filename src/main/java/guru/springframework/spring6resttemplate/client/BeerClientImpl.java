@@ -61,7 +61,7 @@ public class BeerClientImpl implements BeerClient {
 
 
 
-        return null;
+        return response.getBody();
     }
 
 
