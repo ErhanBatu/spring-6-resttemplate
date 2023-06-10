@@ -8,4 +8,6 @@ public interface BeerClient {
     //I take Page from Spring, if you want you can create your own properties
     Page<BeerDTO> listBeers();
 
+    Page<BeerDTO> beerDTOImpl();
+
 }

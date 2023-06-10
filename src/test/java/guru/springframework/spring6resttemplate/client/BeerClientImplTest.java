@@ -18,4 +18,12 @@ class BeerClientImplTest {
         beerClient.listBeers();
 
     }
+
+    @Test
+    void beerDTOImplTest() {
+
+        //this is giving error
+        beerClient.beerDTOImpl();
+
+    }
 }

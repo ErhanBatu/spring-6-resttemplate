@@ -2,6 +2,7 @@ package guru.springframework.spring6resttemplate.client;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import guru.springframework.spring6resttemplate.model.BeerDTO;
+import guru.springframework.spring6resttemplate.model.BeerDTOPageImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.domain.Page;
@@ -46,4 +47,19 @@ public class BeerClientImpl implements BeerClient {
 
         return null;
     }
+
+    @Override
+    public Page<BeerDTO> beerDTOImpl() {
+
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+        //this is gonna convert JSON from API to my model in BeerDTO
+        ResponseEntity<BeerDTOPageImpl> response = restTemplate.getForEntity(BASE_URL+GET_BEER_PATH, BeerDTOPageImpl.class);
+
+
+
+        return null;
+    }
+
+
 }
