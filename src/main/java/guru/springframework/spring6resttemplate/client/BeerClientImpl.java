@@ -27,6 +27,20 @@ public class BeerClientImpl implements BeerClient {
     private static final String GET_BEER_PATH = "/api/v1/beer";
     public static final String GET_BEER_BY_ID_PATH = "/api/v1/beer/{beerId}";
 
+
+
+    @Override
+    public BeerDTO createBeer(BeerDTO newDto) {
+
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+        ResponseEntity<BeerDTO> response = restTemplate.postForEntity(GET_BEER_PATH, newDto, BeerDTO.class);
+
+
+        return null;
+    }
+
+
     @Override
     public String listBeers(String beerName) {
 
@@ -110,4 +124,6 @@ public class BeerClientImpl implements BeerClient {
         return restTemplate.getForObject(GET_BEER_BY_ID_PATH, BeerDTO.class, beerId);
 
     }
+
+
 }

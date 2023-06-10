@@ -20,6 +20,6 @@ public class BeerDTO {
     private String upc;
     private Integer quantityOnHand;
     private BigDecimal price;
-    private LocalDateTime createdDate;
-    private LocalDateTime updateDate;
+//    private LocalDateTime createdDate;
+//    private LocalDateTime lastUpdatedDate;
 }
