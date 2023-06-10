@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ public class BeerClientImpl implements BeerClient {
 
     //with the different environment you should only change PATH
     private static final String GET_BEER_PATH = "/api/v1/beer";
+    public static final String GET_BEER_BY_ID_PATH = "/api/v1/beer/{beerId}";
 
     @Override
     public String listBeers(String beerName) {
@@ -61,6 +63,33 @@ public class BeerClientImpl implements BeerClient {
     }
 
     @Override
+    public Page<BeerDTO> listBeers() {
+
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+        //ResponseEntity<String> I made this because I will take JSON which is String
+        ResponseEntity<String> stringResponse =
+                restTemplate.getForEntity(GET_BEER_PATH, String.class);
+
+        System.out.println(stringResponse.getBody());
+
+        //We invoke here Jackson and it will convert JSON to MAP
+        ResponseEntity<Map> mapResponse =
+                restTemplate.getForEntity(GET_BEER_PATH, Map.class);
+
+        ResponseEntity<JsonNode> jsonResponse = restTemplate.getForEntity(GET_BEER_PATH, JsonNode.class);
+
+        //First this will go to beers and after beers it will do iteration and bring you all beerNames
+        //This is Jackson
+        jsonResponse.getBody().findPath("content")
+                .elements().forEachRemaining(node -> {
+                    System.out.println(node.get("beerName").asText());
+                });
+
+        return null;
+    }
+
+    @Override
     public Page<BeerDTO> beerDTOImpl() {
 
         RestTemplate restTemplate = restTemplateBuilder.build();
@@ -74,4 +103,11 @@ public class BeerClientImpl implements BeerClient {
     }
 
 
+    @Override
+    public BeerDTO getBeerById(UUID beerId) {
+
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        return restTemplate.getForObject(GET_BEER_BY_ID_PATH, BeerDTO.class, beerId);
+
+    }
 }
