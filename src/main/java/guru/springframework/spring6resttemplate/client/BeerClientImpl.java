@@ -59,10 +59,10 @@ public class BeerClientImpl implements BeerClient {
         RestTemplate restTemplate = restTemplateBuilder.build();
 
         //we are converting from JSON directly to our POJO
-        ResponseEntity<BeerDTOPageImpl> stringResponse =
+        ResponseEntity<BeerDTOPageImpl> response =
                 restTemplate.getForEntity(GET_BEER_PATH, BeerDTOPageImpl.class);
 
-        return null;
+        return response.getBody();
     }
 
 
