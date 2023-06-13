@@ -8,11 +8,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 @RequiredArgsConstructor
 @Service
 public class BeerClientImpl implements BeerClient {
 
     private final RestTemplateBuilder restTemplateBuilder;
+
+    public static final String BASE_URL="http://localhost:8080";
+    public static final String GET_BEER_PATH="/api/v1/beer";
     @Override
     public Page<BeerDTO> listBeers() {
 
@@ -20,9 +25,16 @@ public class BeerClientImpl implements BeerClient {
 
         //We will take as String ResponseEntity<String>
         ResponseEntity<String> stringResponse =
-                restTemplate.getForEntity("http://localhost:8080/api/v1/beer", String.class);
+                restTemplate.getForEntity(BASE_URL+GET_BEER_PATH, String.class);
+
+        //ResponseEntity<Map> in this point we call Jackson and convert from JSON to Java Map
+        ResponseEntity<Map> mapResponse =
+                restTemplate.getForEntity(BASE_URL+GET_BEER_PATH, Map.class);
 
         System.out.println(stringResponse.getBody());
+
+        //it will give you as map
+        System.out.println(mapResponse.getBody());
 
         return null;
     }
