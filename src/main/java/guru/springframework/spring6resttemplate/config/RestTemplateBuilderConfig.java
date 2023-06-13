@@ -14,6 +14,10 @@ public class RestTemplateBuilderConfig {
     //but with this ${} it will go to application.properties and will retreive rest.template.rootUrl
     @Value("${rest.template.rootUrl}")
     String rootUrl;
+    @Value("${rest.template.username}")
+    String username;
+    @Value("${rest.template.password}")
+    String password;
 
     @Bean
     RestTemplateBuilder restTemplateBuilder(RestTemplateBuilderConfigurer configurer){
@@ -21,7 +25,9 @@ public class RestTemplateBuilderConfig {
         RestTemplateBuilder builder = configurer.configure(new RestTemplateBuilder());
         DefaultUriBuilderFactory uriBuilderFactory = new DefaultUriBuilderFactory(rootUrl);
 
-        return builder.uriTemplateHandler(uriBuilderFactory);
+        RestTemplateBuilder builderWithAuth = builder.basicAuthentication(username, password);
+
+        return builderWithAuth.uriTemplateHandler(uriBuilderFactory);
 
     }
 
