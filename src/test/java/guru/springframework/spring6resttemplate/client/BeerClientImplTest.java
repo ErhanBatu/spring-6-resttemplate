@@ -22,7 +22,7 @@ class BeerClientImplTest {
     @Test
     void listBeersPage() {
 
-        beerClient.listBeersPage();
+        beerClient.listBeersPage("ALE");
 
     }
 }

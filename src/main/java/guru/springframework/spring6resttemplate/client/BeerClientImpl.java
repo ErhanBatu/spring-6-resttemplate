@@ -55,13 +55,17 @@ public class BeerClientImpl implements BeerClient {
     }
 
     @Override
-    public Page<BeerDTO> listBeersPage() {
+    public Page<BeerDTO> listBeersPage(String beerName) {
 
         RestTemplate restTemplate = restTemplateBuilder.build();
 
         //UriComponentsBuilder ALLOWS US TO PUT QUERY PARAM. fromPath MEANS YOU GET THE DEFAULT PATH AND YOU PUT QUERY ON IT
         //YOU ARE NOT DEFINING NEW PATH HERE
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromPath(GET_BEER_PATH);
+
+        if (beerName != null){
+            uriComponentsBuilder.queryParam("beerName", beerName);
+        }
 
         //we are converting from JSON directly to our POJO
         ResponseEntity<BeerDTOPageImpl> response =

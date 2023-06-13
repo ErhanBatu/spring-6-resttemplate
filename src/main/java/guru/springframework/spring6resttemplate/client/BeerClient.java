@@ -7,5 +7,5 @@ public interface BeerClient {
 
     Page<BeerDTO> listBeers();
 
-    Page<BeerDTO> listBeersPage();
+    Page<BeerDTO> listBeersPage(String beerName);
 }
