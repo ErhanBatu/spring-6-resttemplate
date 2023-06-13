@@ -29,6 +29,16 @@ public class BeerClientImpl implements BeerClient {
 
 
     @Override
+    public BeerDTO createBeer(BeerDTO newDto) {
+
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+        ResponseEntity<BeerDTO> response = restTemplate.postForEntity(GET_BEER_PATH, newDto,BeerDTO.class);
+
+        return null;
+    }
+
+    @Override
     public BeerDTO getBeerById(UUID beerId) {
 
         //we put the parameter to url, this is not query param
