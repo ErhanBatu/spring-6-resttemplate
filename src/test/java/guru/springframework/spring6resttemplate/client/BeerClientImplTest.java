@@ -53,4 +53,9 @@ class BeerClientImplTest {
 
         beerClient.listBeers("ALE", null, null, null, null);
     }
+
+    @Test
+    void myBeers(){
+        beerClient.myBeers();
+    }
 }
