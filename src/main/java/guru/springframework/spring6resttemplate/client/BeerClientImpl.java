@@ -18,7 +18,8 @@ public class BeerClientImpl implements BeerClient {
 
     private final RestTemplateBuilder restTemplateBuilder;
 
-    public static final String BASE_URL="http://localhost:8080";
+    //i defined base url in config
+//    public static final String BASE_URL="http://localhost:8080";
     public static final String GET_BEER_PATH="/api/v1/beer";
     @Override
     public Page<BeerDTO> listBeers() {
@@ -27,15 +28,16 @@ public class BeerClientImpl implements BeerClient {
 
         //We will take as String ResponseEntity<String>
         ResponseEntity<String> stringResponse =
-                restTemplate.getForEntity(BASE_URL+GET_BEER_PATH, String.class);
+                //I defined the base url in config, spring automatically puts here
+                restTemplate.getForEntity(GET_BEER_PATH, String.class);
 
         //ResponseEntity<Map> in this point we call Jackson and convert from JSON to Java Map
         ResponseEntity<Map> mapResponse =
-                restTemplate.getForEntity(BASE_URL+GET_BEER_PATH, Map.class);
+                restTemplate.getForEntity(GET_BEER_PATH, Map.class);
 
         //here you are using again Jackson and easily you can navigate inside JSON
         ResponseEntity<JsonNode> jsonResponse =
-                restTemplate.getForEntity(BASE_URL+GET_BEER_PATH, JsonNode.class);
+                restTemplate.getForEntity(GET_BEER_PATH, JsonNode.class);
 
         System.out.println(stringResponse.getBody());
 
@@ -58,7 +60,7 @@ public class BeerClientImpl implements BeerClient {
 
         //we are converting from JSON directly to our POJO
         ResponseEntity<BeerDTOPageImpl> stringResponse =
-                restTemplate.getForEntity(BASE_URL+GET_BEER_PATH, BeerDTOPageImpl.class);
+                restTemplate.getForEntity(GET_BEER_PATH, BeerDTOPageImpl.class);
 
         return null;
     }

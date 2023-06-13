@@ -19,6 +19,7 @@ public class RestTemplateBuilderConfig {
     @Value("${rest.template.password}")
     String password;
 
+    //to be able to take the values above you have to define this bean below
     @Bean
     RestTemplateBuilder restTemplateBuilder(RestTemplateBuilderConfigurer configurer){
 
