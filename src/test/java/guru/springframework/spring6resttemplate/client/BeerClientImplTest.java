@@ -18,4 +18,11 @@ class BeerClientImplTest {
         beerClient.listBeers();
 
     }
+
+    @Test
+    void listBeersPage() {
+
+        beerClient.listBeersPage();
+
+    }
 }
